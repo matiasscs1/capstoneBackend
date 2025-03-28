@@ -1,5 +1,6 @@
 import Usuario from '../models/usuario.model.js';
 import bcrypt from 'bcrypt';
+import {createAccessToken} from '../libs/jwt.js';
 
 // Registro de usuario
 export const register = async (req, res) => {
@@ -26,7 +27,7 @@ export const register = async (req, res) => {
         }
 
         // Encriptar contraseña
-        const salt = await bcrypt.genSalt(10); 
+        const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(contraseña, salt);
 
         const nuevoUsuario = new Usuario({
@@ -41,15 +42,27 @@ export const register = async (req, res) => {
             puntosAcumulados
         });
 
-        await nuevoUsuario.save();
-        console.log(nuevoUsuario);
+       const userSaved =  await nuevoUsuario.save();
+       const token = await createAccessToken({id: userSaved.id_usuario});
 
-        res.status(201).json({
+        res.cookie('token', token);
+       
+
+        res.json({
             message: "Usuario registrado exitosamente.",
-            usuario: nuevoUsuario
+            usuario: {
+                id: nuevoUsuario.id_usuario,
+                nombre: nuevoUsuario.nombre,
+                apellido: nuevoUsuario.apellido,
+                correo: nuevoUsuario.correo,
+                rol: nuevoUsuario.rol,
+                foto_perfil: nuevoUsuario.foto_perfil,
+                fecha_nacimiento: nuevoUsuario.fecha_nacimiento,
+                estado: nuevoUsuario.estado,
+                puntosAcumulados: nuevoUsuario.puntosAcumulados
+            }
         });
     } catch (error) {
-        console.error("Error al registrar usuario:", error);
         res.status(500).json({ message: "Error del servidor." });
     }
 };

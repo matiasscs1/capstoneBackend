@@ -25,6 +25,7 @@ npm install nodemon
 inicial npm run dev
 npm install bcrypt
 npm install uuid
+npm install jsonwebtoken
 
 
 
