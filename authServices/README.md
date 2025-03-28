@@ -19,6 +19,7 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 ---
 - git clone https://github.com/tu-usuario/nombre-del-repo.git
 - cd nombre-del-repo
+- npm -y install
 - npm install
 - npm install express mongoose morgan
 - npm install nodemon
