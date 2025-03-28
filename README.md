@@ -26,6 +26,8 @@ inicial npm run dev
 npm install bcrypt
 npm install uuid
 npm install jsonwebtoken
+npm install passport passport-azure-ad express-session
+
 
 
 

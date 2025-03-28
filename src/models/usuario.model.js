@@ -25,7 +25,7 @@ const usuarioSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
-    contraseña: {
+    contrasenia: {
         type: String,
         required: true,
         trim: true
