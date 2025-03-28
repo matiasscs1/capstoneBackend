@@ -17,16 +17,16 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 ## 📦 Instalación del proyecto
 
 ---
-git clone https://github.com/tu-usuario/nombre-del-repo.git
-cd nombre-del-repo
-npm install
-npm install express mongoose morgan
-npm install nodemon
-inicial npm run dev
-npm install bcrypt
-npm install uuid
-npm install jsonwebtoken
-npm install passport passport-azure-ad express-session
+- git clone https://github.com/tu-usuario/nombre-del-repo.git
+- cd nombre-del-repo
+- npm install
+- npm install express mongoose morgan
+- npm install nodemon
+- inicial npm run dev
+- npm install bcrypt
+- npm install uuid
+- npm install jsonwebtoken
+- npm install passport passport-azure-ad express-session
 
 
 
@@ -36,7 +36,7 @@ npm install passport passport-azure-ad express-session
 ## base de datos
 
 
-Table Usuarios {
+- Table Usuarios {
   id_usuario varchar [pk]
   nombre varchar
   apellido varchar
@@ -49,21 +49,21 @@ Table Usuarios {
   puntosAcumulados int
 }
 
-Table Perfil {
+- Table Perfil {
   id_perfil varchar [pk]
   id_usuario varchar [ref: > Usuarios.id_usuario]
   descripcion varchar
   foto_portada varchar
 }
 
-Table Seguimientos {
+- Table Seguimientos {
   id_seguimiento varchar [pk]
   seguidorId varchar [ref: > Usuarios.id_usuario]
   seguidoId varchar [ref: > Usuarios.id_usuario]
   fecha datetime
 }
 
-Table Actividad {
+- Table Actividad {
   id_actividad varchar [pk]
   titulo varchar
   descripcion varchar
@@ -73,7 +73,7 @@ Table Actividad {
   estado varchar
 }
 
-Table Inscripcion {
+- Table Inscripcion {
   id_inscripcion varchar [pk]
   id_usuario varchar [ref: > Usuarios.id_usuario]
   id_actividad varchar [ref: > Actividad.id_actividad]
@@ -82,7 +82,7 @@ Table Inscripcion {
   puntosOtorgados int
 }
 
-Table Evidencias {
+- Table Evidencias {
   id_evidencia varchar [pk]
   id_inscripcion varchar [ref: > Inscripcion.id_inscripcion]
   archivoUrl varchar
@@ -91,7 +91,7 @@ Table Evidencias {
   fechaSubida datetime
 }
 
-Table Publicaciones {
+- Table Publicaciones {
   id_publicacion varchar [pk]
   autorId varchar [ref: > Usuarios.id_usuario]
   descripcion varchar
@@ -100,7 +100,7 @@ Table Publicaciones {
   fechaPublicacion datetime
 }
 
-Table Comentarios {
+- Table Comentarios {
   id_comentario varchar [pk]
   publicacionId varchar [ref: > Publicaciones.id_publicacion]
   autorId varchar [ref: > Usuarios.id_usuario]
@@ -108,7 +108,7 @@ Table Comentarios {
   fecha datetime
 }
 
-Table Recompensas {
+- Table Recompensas {
   id_recompensa varchar [pk]
   nombre varchar
   descripcion varchar
@@ -118,7 +118,7 @@ Table Recompensas {
   activa boolean
 }
 
-Table Canjes {
+- Table Canjes {
   id_canje varchar [pk]
   usuarioId varchar [ref: > Usuarios.id_usuario]
   recompensaId varchar [ref: > Recompensas.id_recompensa]
@@ -127,7 +127,7 @@ Table Canjes {
   observaciones varchar
 }
 
-Table Insignias {
+- Table Insignias {
   id_insignia varchar [pk]
   nombre varchar
   descripcion varchar
@@ -135,14 +135,14 @@ Table Insignias {
   activa boolean
 }
 
-Table UsuarioInsignias {
+- Table UsuarioInsignias {
   id_usuarioInsignia varchar [pk]
   usuarioId varchar [ref: > Usuarios.id_usuario]
   insigniaId varchar [ref: > Insignias.id_insignia]
   fechaOtorgada datetime
 }
 
-MONGO_URI=mongodb+srv://<usuario>:<contraseña>@<cluster>.mongodb.net/<nombreBaseDatos>?retryWrites=true&w=majority&appName=<nombreApp>
+- MONGO_URI=mongodb+srv://<usuario>:<contraseña>@<cluster>.mongodb.net/<nombreBaseDatos>?retryWrites=true&w=majority&appName=<nombreApp>
 PORT=3000
 
 
