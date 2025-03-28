@@ -23,6 +23,10 @@ npm install
 npm install express mongoose morgan
 npm install nodemon
 inicial npm run dev
+npm install bcrypt
+npm install uuid
+
+
 
 ---
 

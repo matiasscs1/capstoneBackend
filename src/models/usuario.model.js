@@ -1,60 +1,59 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from 'uuid';
  
-/*Table Usuarios {
-    id_usuario varchar [pk]
-    nombre varchar
-    apellido varchar
-    correo varchar
-    contraseña varchar
-    rol varchar
-    foto_perfil varchar
-    fecha_nacimiento date
-    estado varchar
-    puntosAcumulados int
-  }
-*/    
 const usuarioSchema = new mongoose.Schema({
     id_usuario: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        default: uuidv4,
+        trim: true
     },
     nombre: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     apellido: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     correo: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     contraseña: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     rol: {
         type: String,
         enum: ['administrador', 'usuario', 'profesor', 'representante'],
+        trim: true
     },
     foto_perfil: {
         type: String,
-        default: ''
+        default: '',
+        trim: true
     },
     fecha_nacimiento: {
         type: Date,
-        required: true
+        required: true,
+        trim: true
     },
     estado: {
         type: String,
         enum: ['activo', 'inactivo'],
-        default: 'activo'
+        default: 'activo',
+        trim: true
     },
     puntosAcumulados:{
       type:Number,
       default : 0
   }
 });
+export default mongoose.model('Usuario', usuarioSchema);
