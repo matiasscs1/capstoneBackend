@@ -23,7 +23,7 @@ export const registroUsuarioSchemaZod = z.object({
     .regex(/[0-9]/, 'Debe contener al menos un número')
     .regex(/[@_#?¿&=¡!,+$*\-]/, 'Debe contener al menos un carácter especial permitido (@ _ # ? ¿ & = ¡ ! , + $ * -)'),
 
-  rol: z.enum(['usuario', 'profesor', 'representante'], {
+  rol: z.enum(['estudiante', 'profesor', 'representante'], {
     required_error: 'El rol es obligatorio',
     invalid_type_error: 'Rol inválido',
   }),

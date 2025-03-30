@@ -89,6 +89,11 @@ export const login =async (req, res) => {
         if(!comparacionPassword){
             return res.status(401).json({ message: "Credenciales incorrectas" });
         }
+        
+        if (comparacionCorreo.estado === 'inactivo') {
+            return res.status(403).json({ message: 'Tu cuenta está inactiva.' });
+        }
+          
 
         const token = await createAccessToken({id: comparacionCorreo.id_usuario});
       
