@@ -32,7 +32,7 @@ const usuarioSchema = new mongoose.Schema({
     },
     rol: {
         type: String,
-        enum: ['administrador', 'usuario', 'profesor', 'representante'],
+        enum: ['usuario', 'profesor', 'representante'],
         trim: true
     },
     foto_perfil: {
