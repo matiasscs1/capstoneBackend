@@ -22,6 +22,7 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - npm -y install
 - npm init -y
 - npm install
+- npm install dotenv
 - npm install express mongoose morgan
 - npm install nodemon
 - inicial npm run dev
