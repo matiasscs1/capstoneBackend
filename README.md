@@ -20,6 +20,7 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - git clone https://github.com/tu-usuario/nombre-del-repo.git
 - cd nombre-del-repo
 - npm -y install
+- npm init -y
 - npm install
 - npm install express mongoose morgan
 - npm install nodemon
@@ -30,6 +31,7 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - npm install passport passport-azure-ad express-session
 - npm i cookie-parser
 - npm install zod
+
 
 
 
