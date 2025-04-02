@@ -1,6 +1,6 @@
 import Usuario from '../models/usuario.model.js';
 import bcrypt from 'bcrypt';
-import {createAccessToken} from '../libs/jwt.js';
+import { createAccessToken } from '../libs/jwt.js';
 
 export const register = async (req, res) => {
     try {
@@ -10,7 +10,6 @@ export const register = async (req, res) => {
             correo,
             contrasenia,
             rol,
-            foto_perfil,
             fecha_nacimiento,
             estado,
             puntosAcumulados
@@ -28,6 +27,11 @@ export const register = async (req, res) => {
         // Encriptar contraseña
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(contrasenia, salt);
+        
+        const media = req.files.map(file => ({
+            url: file.path,
+            tipo: file.mimetype.startsWith('video') ? 'video' : 'imagen'
+          }));
 
         const nuevoUsuario = new Usuario({
             nombre,
@@ -35,17 +39,19 @@ export const register = async (req, res) => {
             correo,
             contrasenia: hashedPassword,
             rol,
-            foto_perfil,
+            foto_perfil: media,
             fecha_nacimiento,
             estado,
             puntosAcumulados
         });
 
-       const userSaved =  await nuevoUsuario.save();
-       const token = await createAccessToken({id: userSaved.id_usuario});
-
+        const userSaved = await nuevoUsuario.save();
+        const token = await createAccessToken({
+            id: userSaved.id_usuario,
+            rol: userSaved.rol
+        });
         res.cookie('token', token);
-       
+
 
         res.json({
             message: "Usuario registrado exitosamente.",
@@ -67,39 +73,43 @@ export const register = async (req, res) => {
 };
 
 
-export const login =async (req, res) => {
+export const login = async (req, res) => {
     try {
         const {
             correo,
             contrasenia,
         } = req.body;
 
-        if ( !correo || !contrasenia ) {
+        if (!correo || !contrasenia) {
             return res.status(400).json({ message: "Faltan campos obligatorios." });
         }
 
         const comparacionCorreo = await Usuario.findOne({ correo });
 
-        if(!comparacionCorreo){
+        if (!comparacionCorreo) {
             return res.status(404).json({ message: "Credenciales incorrectas." });
         }
 
         const comparacionPassword = await bcrypt.compare(contrasenia, comparacionCorreo.contrasenia);
 
-        if(!comparacionPassword){
+        if (!comparacionPassword) {
             return res.status(401).json({ message: "Credenciales incorrectas" });
         }
-        
+
         if (comparacionCorreo.estado === 'inactivo') {
             return res.status(403).json({ message: 'Tu cuenta está inactiva.' });
         }
-          
 
-        const token = await createAccessToken({id: comparacionCorreo.id_usuario});
-      
-    
+
+        const token = await createAccessToken({
+            id: comparacionCorreo.id_usuario,
+            rol: comparacionCorreo.rol
+        });
+        
+
+
         res.cookie('token', token);
-       
+
 
         res.json({
             message: "Ingreso exitosamente.",
@@ -121,7 +131,7 @@ export const login =async (req, res) => {
 };
 
 export const logout = (req, res) => {
-    res.cookie('token', "",{ 
+    res.cookie('token', "", {
         expires: new Date(0)
     });
     res.status(200).json({ message: "Sesión cerrada." });

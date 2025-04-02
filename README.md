@@ -32,6 +32,11 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - npm install passport passport-azure-ad express-session
 - npm i cookie-parser
 - npm install zod
+- npm install cloudinary multer multer-storage-cloudinary --legacy-peer-deps
+- npm install axios
+
+
+
 
 
 
@@ -46,7 +51,7 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - Control de estado de cuenta (activo/inactivo)
 
 ## 2. publicaciones
-- Crear publicación (logro, proyecto)
+- Crear publicación
 - Subir multimedia (imágenes/videos)
 - Reaccionar (me gusta) a publicaciones
 - Ver galería del perfil
