@@ -10,7 +10,9 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - Express.js  
 - Mongoose (MongoDB)  
 - Morgan  
-- Nodemon  
+- Nodemon
+- cloudynari
+- moderacion ia sishengine
 
 ---
 
