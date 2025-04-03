@@ -10,11 +10,18 @@ import {
     actualizarUsuario,
     eliminarUsuario
   } from '../controller/usuario.controller.js';
+  import upload from '../middlewares/subirFotos.js'; 
+
 
 const router = Router()
 
 
-router.post('/api/register', validateSchema(registroUsuarioSchemaZod),  register);
+router.post(
+  '/api/register',
+  upload.array('files'), 
+  validateSchema(registroUsuarioSchemaZod),
+  register
+);
 router.post('/api/login', validateSchema(loginSchemaZod),login);
 router.post('/api/logout', logout);
 router.get('/api/profile', authRequired , profile);

@@ -11,8 +11,6 @@ export const register = async (req, res) => {
             contrasenia,
             rol,
             fecha_nacimiento,
-            estado,
-            puntosAcumulados
         } = req.body;
 
         if (!nombre || !apellido || !correo || !contrasenia || !fecha_nacimiento) {
@@ -27,11 +25,14 @@ export const register = async (req, res) => {
         // Encriptar contraseña
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(contrasenia, salt);
-        
-        const media = req.files.map(file => ({
-            url: file.path,
-            tipo: file.mimetype.startsWith('video') ? 'video' : 'imagen'
-          }));
+
+        const media = req.files && req.files.length > 0
+            ? req.files.map(file => ({
+                url: file.path,
+                tipo: file.mimetype.startsWith('video') ? 'video' : 'imagen'
+            }))
+            : [];
+
 
         const nuevoUsuario = new Usuario({
             nombre,
@@ -40,9 +41,7 @@ export const register = async (req, res) => {
             contrasenia: hashedPassword,
             rol,
             foto_perfil: media,
-            fecha_nacimiento,
-            estado,
-            puntosAcumulados
+            fecha_nacimiento
         });
 
         const userSaved = await nuevoUsuario.save();
@@ -62,14 +61,14 @@ export const register = async (req, res) => {
                 correo: nuevoUsuario.correo,
                 rol: nuevoUsuario.rol,
                 foto_perfil: nuevoUsuario.foto_perfil,
-                fecha_nacimiento: nuevoUsuario.fecha_nacimiento,
-                estado: nuevoUsuario.estado,
-                puntosAcumulados: nuevoUsuario.puntosAcumulados
+                fecha_nacimiento: nuevoUsuario.fecha_nacimiento
             }
         });
     } catch (error) {
+        console.error("Error en el registro:", error); // 🔥 Esto muestra el error real
         res.status(500).json({ message: "Error del servidor." });
-    }
+      }
+      
 };
 
 
@@ -105,7 +104,7 @@ export const login = async (req, res) => {
             id: comparacionCorreo.id_usuario,
             rol: comparacionCorreo.rol
         });
-        
+
 
 
         res.cookie('token', token);

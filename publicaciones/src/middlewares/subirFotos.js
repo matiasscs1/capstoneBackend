@@ -1,6 +1,5 @@
 import multer from 'multer';
-import { storage } from '../config.js';
-
+import { storage } from '../config/config.js';
 const fileFilter = (req, file, cb) => {
   const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'video/mp4', 'video/webm'];
 

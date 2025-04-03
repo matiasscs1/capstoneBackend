@@ -10,4 +10,6 @@ app.use(express.json());
 app.use(cookieParser()); 
 app.use(authRoutes);
 
+app.use(express.urlencoded({ extended: true })); 
+
 export default app;

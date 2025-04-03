@@ -1,23 +1,45 @@
 import Publicacion from '../models/publicacion.model.js';
 import {obtenerDatosUsuario} from '../services/authServices.services.js';
-import {authRequired} from '../middlewares/validateToken.js';
-
+import { analizarContenidoImagen, analizarFrameDeVideo } from '../services/sightengineService.js';
 // CREAR PUBLICACIÓN
+
+
 export const crearPublicacion = async (req, res) => {
   try {
     const { descripcion } = req.body;
+    const media = [];
 
-    const media = req.files.map(file => ({
-      url: file.path,
-      tipo: file.mimetype.startsWith('video') ? 'video' : 'imagen'
-    }));
+    for (const file of req.files) {
+      const tipo = file.mimetype.startsWith('video') ? 'video' : 'imagen';
+      const url = file.path;
 
-    console.log('Archivos recibidos:', req.files);
+      if (tipo === 'imagen') {
+        const { esInapropiada, detections } = await analizarContenidoImagen(url);
+        if (esInapropiada) {
+          return res.status(400).json({
+            error: 'Se detectó contenido inapropiado en la imagen.',
+            detalles: detections
+          });
+        }
+      }
+
+      if (tipo === 'video') {
+        const { esInapropiada, detections } = await analizarFrameDeVideo(url);
+        if (esInapropiada) {
+          return res.status(400).json({
+            error: 'Se detectó contenido inapropiado en el video.',
+            detalles: detections
+          });
+        }
+      }
+
+      media.push({ url, tipo });
+    }
 
     const nueva = new Publicacion({
       autorId: req.user.id,
       descripcion,
-      imagenes: media
+      imagenes: media,
     });
 
     const guardada = await nueva.save();
@@ -27,6 +49,7 @@ export const crearPublicacion = async (req, res) => {
     res.status(500).json({ error: 'Error al crear publicación' });
   }
 };
+
 
 // DAR LIKE
 export const darLike = async (req, res) => {

@@ -32,8 +32,13 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - npm install passport passport-azure-ad express-session
 - npm i cookie-parser
 - npm install zod
+- npm install multer
 - npm install cloudinary multer multer-storage-cloudinary --legacy-peer-deps
 - npm install axios
+- npm install @google-cloud/vision
+- npm install fluent-ffmpeg
+
+
 
 
 

@@ -35,11 +35,12 @@ const usuarioSchema = new mongoose.Schema({
         enum: ['estudiante', 'profesor', 'representante'],
         trim: true
     },
-    foto_perfil: {
-        type: String,
-        default: '',
-        trim: true
-    },
+    foto_perfil: [
+        {
+          url: String,
+          tipo: String
+        }
+    ],
     fecha_nacimiento: {
         type: Date,
         required: true,

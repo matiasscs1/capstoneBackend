@@ -3,6 +3,8 @@
 
 # Dependencias
 node_modules/
+src/config/vision_key.json
+
 
 # Logs
 npm-debug.log*
