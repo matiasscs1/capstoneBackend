@@ -37,8 +37,9 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - npm install multer
 - npm install cloudinary multer multer-storage-cloudinary --legacy-peer-deps
 - npm install axios
-- npm install @google-cloud/vision
 - npm install fluent-ffmpeg
+- npm install bad-words
+
 
 
 

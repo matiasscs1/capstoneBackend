@@ -1,12 +1,21 @@
 import Comentario from '../models/comentario.model.js';
-import {obtenerDatosUsuario } from '../services/authServices.services.js';
-// CREAR COMENTARIO
+import { obtenerDatosUsuario } from '../services/authServices.services.js';
+import { contienePalabrasOfensivas } from '../services/textModeration.js';
+
 export const crearComentario = async (req, res) => {
   try {
     const { publicacionId, texto } = req.body;
 
     if (!texto?.trim()) {
       return res.status(400).json({ message: 'El comentario no puede estar vacío' });
+    }
+
+    const esOfensivo = contienePalabrasOfensivas(texto);
+
+    if (esOfensivo) {
+      return res.status(400).json({
+        error: 'Tu comentario contiene lenguaje inapropiado. Por favor, modifícalo.'
+      });
     }
 
     const nuevoComentario = new Comentario({
@@ -18,6 +27,7 @@ export const crearComentario = async (req, res) => {
     const guardado = await nuevoComentario.save();
     res.status(201).json(guardado);
   } catch (err) {
+    console.error('Error al crear comentario:', err);
     res.status(500).json({ error: 'Error al crear comentario' });
   }
 };
