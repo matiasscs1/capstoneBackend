@@ -56,6 +56,7 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - Validación de roles (admin, profesor, estudiante, padre)
 - Gestión de sesión y cookies
 - Control de estado de cuenta (activo/inactivo)
+- 2FA
 
 ## 2. publicaciones
 - Crear publicación
