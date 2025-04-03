@@ -1,6 +1,8 @@
 import Publicacion from '../models/publicacion.model.js';
-import {obtenerDatosUsuario} from '../services/authServices.services.js';
+import { obtenerDatosUsuario } from '../services/authServices.services.js';
 import { analizarContenidoImagen, analizarFrameDeVideo } from '../services/sightengineService.js';
+import { cloudinary } from '../config/config.js';
+
 // CREAR PUBLICACIÓN
 
 
@@ -13,28 +15,38 @@ export const crearPublicacion = async (req, res) => {
       const tipo = file.mimetype.startsWith('video') ? 'video' : 'imagen';
       const url = file.path;
 
+      // IMAGEN
       if (tipo === 'imagen') {
-        const { esInapropiada, detections } = await analizarContenidoImagen(url);
+        const { esInapropiada, detalles } = await analizarContenidoImagen(url);
         if (esInapropiada) {
+          const publicId = file.filename.replace(/\.[^/.]+$/, '');
+          await cloudinary.uploader.destroy(publicId, { resource_type: 'image' });
+
           return res.status(400).json({
             error: 'Se detectó contenido inapropiado en la imagen.',
-            detalles: detections
+            detalles
           });
         }
       }
 
+      // VIDEO
       if (tipo === 'video') {
-        const { esInapropiada, detections } = await analizarFrameDeVideo(url);
+        const { esInapropiada, detalles } = await analizarFrameDeVideo(url);
         if (esInapropiada) {
+          const publicId = file.filename.replace(/\.[^/.]+$/, '');
+          await cloudinary.uploader.destroy(publicId, { resource_type: 'video' });
+
           return res.status(400).json({
             error: 'Se detectó contenido inapropiado en el video.',
-            detalles: detections
+            detalles
           });
         }
       }
 
       media.push({ url, tipo });
     }
+
+
 
     const nueva = new Publicacion({
       autorId: req.user.id,
@@ -87,7 +99,7 @@ export const listarPublicaciones = async (req, res) => {
         let datosAutor = null;
 
         if (rol === 'estudiante' || rol === 'profesor') {
-          
+
           const autor = await obtenerDatosUsuario(pub.autorId, token)
           if (autor) {
             datosAutor = {
@@ -128,10 +140,10 @@ export const misPublicaciones = async (req, res) => {
       meGusta: pub.likes.includes(req.user.id),
       autor: autor
         ? {
-            nombre: autor.nombre,
-            fotoPerfil: autor.fotoPerfil,
-            rol: autor.rol
-          }
+          nombre: autor.nombre,
+          fotoPerfil: autor.fotoPerfil,
+          rol: autor.rol
+        }
         : null
     }));
 
@@ -161,10 +173,10 @@ export const publicacionesPorUsuario = async (req, res) => {
       meGusta: pub.likes.includes(req.user.id),
       autor: autor
         ? {
-            nombre: autor.nombre,
-            fotoPerfil: autor.fotoPerfil,
-            rol: autor.rol
-          }
+          nombre: autor.nombre,
+          fotoPerfil: autor.fotoPerfil,
+          rol: autor.rol
+        }
         : null
     }));
 
