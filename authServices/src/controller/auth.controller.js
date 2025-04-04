@@ -1,12 +1,11 @@
 import Usuario from '../models/usuario.model.js';
 import bcrypt from 'bcrypt';
-import { createAccessToken } from '../libs/jwt.js';
 import { generarYEnviarCodigo } from '../utils/codigoCorreo.js';
 
-// 🧠 Almacenamiento temporal (puedes cambiarlo por Redis o MongoDB si quieres)
+// Almacenamiento temporal (puedes cambiarlo por Redis o MongoDB si quieres)
 export const registrosTemporales = new Map();
 
-// 🔄 1. Registro temporal: guarda usuario en memoria y envía código
+// 1. Registro temporal: guarda usuario en memoria y envía código
 export const registerTemp = async (req, res) => {
   try {
     const { nombre, apellido, correo, contrasenia, rol, fecha_nacimiento } = req.body;
@@ -45,7 +44,7 @@ export const registerTemp = async (req, res) => {
   }
 };
 
-// 🔐 2. Login normal (envía código 2FA si credenciales son válidas)
+// 2. Login normal (envía código 2FA si credenciales son válidas)
 export const login = async (req, res) => {
   try {
     const { correo, contrasenia } = req.body;
@@ -73,7 +72,7 @@ export const login = async (req, res) => {
   }
 };
 
-// 🔓 Logout
+// Logout
 export const logout = (req, res) => {
   res.cookie('token', "", {
     expires: new Date(0)
@@ -81,7 +80,7 @@ export const logout = (req, res) => {
   res.status(200).json({ message: "Sesión cerrada." });
 };
 
-// 👤 Perfil del usuario autenticado
+// Perfil del usuario autenticado
 export const profile = async (req, res) => {
   try {
     const userFound = await Usuario.findOne({ id_usuario: req.user.id });
