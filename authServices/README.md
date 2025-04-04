@@ -27,7 +27,10 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - npm install bcrypt
 - npm install uuid
 - npm install jsonwebtoken
-- npm install passport passport-azure-ad express-session
+- npm install passport - -passport-azure-ad express-session
+- npm install nodemailer
+
+
 
 
 

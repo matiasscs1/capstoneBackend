@@ -35,10 +35,12 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - npm i cookie-parser
 - npm install zod
 - npm install multer
-- npm install cloudinary multer multer-storage-cloudinary --legacy-peer-deps
+- npm install cloudinary multer multer-storage-cloudinary --legacy-peer-deps 
 - npm install axios
-- npm install fluent-ffmpeg
-- npm install bad-words
+- npm install fluent-ffmpeg 
+- npm install bad-words (PUBLICACIONES)
+- npm install nodemailer (AUTHSERVICES)
+ 
 
 
 
