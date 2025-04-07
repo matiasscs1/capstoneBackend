@@ -87,3 +87,10 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - Seguidores y seguidos (solo para profes y padres)
 - Edición de perfil
 - Ver estadísticas personales
+
+## 6. Administracion
+
+- Gestión de usuarios y roles
+- Aprobación/rechazo evidencias
+- Creación/edición de actividades
+- Gestión de recompensas y misiones
