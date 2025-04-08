@@ -1,53 +1,44 @@
 import * as pkg from 'bad-words';
-const Filter = pkg.default || pkg; // fallback para compatibilidad
+const Filter = pkg.default || pkg;
 
 const filtro = new Filter();
 
-
+// Lista ofensiva personalizada (como ya tienes)
 filtro.addWords(
-  // Insultos comunes
   'idiota', 'imbécil', 'estúpido', 'inútil', 'burro', 'bestia', 'tonto', 'bobo',
-
-  // Vulgaridades generales
   'mierda', 'puta', 'puto', 'putazo', 'joder', 'coño', 'gilipollas', 'pendejo', 'culero',
   'cabrón', 'chingar', 'chingado', 'verga', 'concha', 'forro', 'carajo', 'pelotudo',
   'boludo', 'culiado', 'pija', 'pedo', 'reverendo', 'reculiao', 'recagado',
-
-  // Expresiones mexicanas vulgares
   'no mames', 'pinche', 'chingadera', 'huevos', 'me vale verga', 'a la verga',
-
-  // Argentinas / Uruguay / Chile
-  'pelotudo', 'boludo', 'la concha de tu madre', 'andate a la mierda', 'sos un forro',
-  'garcha', 'reventado', 'recontra', 'orto', 'sorete',
-
-  // Homofobia / transfobia / bullying
-  'maricón', 'marica', 'trolo', 'putarraco', 'sidoso', 'trava', 'travesti de mierda',
-  'gay de mierda', 'lesbiana asquerosa', 'trans de mierda',
-
-  // Discriminación / racismo
-  'negro de mierda', 'india', 'indio', 'gitano', 'sudaca', 'judío', 'judía', 'nazi',
-  'terrorista', 'cholo', 'cabecita', 'villero', 'mojado',
-
-  // Sexo / explícito
-  'sexo', 'pornografía', 'porno', 'paja', 'masturbar', 'orgasmo', 'violación',
-  'violador', 'coger', 'cojer', 'eyacular', 'vagina', 'pene', 'teta', 'culo', 'chota',
-  'chuparla', 'lamer', 'hacer el amor', 'meterla', 'mojar', 'dura', 'venirse', 'tragar',
-
-  // Drogas / alcohol
-  'droga', 'drogas', 'cocaína', 'marihuana', 'porro', 'faso', 'éxtasis', 'paco',
-  'alcohol', 'borracho', 'cerveza', 'trago', 'fumón', 'fumeta', 'perico', 'merca',
-
-  // Amenazas o violencia
-  'te voy a matar', 'matarte', 'romperte', 'pegarte', 'reventarte', 'desaparecerte',
-  'sos boleta', 'te busco', 'te encuentro', 'hijo de puta', 'hdp', 'malparido',
-
-  // Abreviaciones o cifradas
-  'hpt', 'ptm', 'qlp', 'gfa', 'vrg', 'hdtm', 'ctm', 'lpm', 'mrd', 'tkmctm'
+  'la concha de tu madre', 'sos un forro', 'garcha', 'orto', 'sorete',
+  'maricón', 'marica', 'trolo', 'putarraco', 'sidoso', 'trava', 'gay de mierda',
+  'negro de mierda', 'sudaca', 'terrorista', 'villero',
+  'sexo', 'pornografía', 'porno', 'paja', 'masturbar', 'violador', 'coger', 'vagina',
+  'droga', 'cocaína', 'marihuana', 'alcohol', 'borracho', 'cerveza',
+  'te voy a matar', 'romperte', 'desaparecerte', 'sos boleta', 'hijo de puta',
+  'hpt', 'ptm', 'qlp', 'gfa', 'vrg', 'hdtm', 'ctm', 'lpm', 'mrd'
 );
+
+// Normaliza texto para detectar trampas
+function normalizarTexto(texto) {
+  return texto
+    .toLowerCase()
+    .normalize('NFD')                           // quitar tildes
+    .replace(/[\u0300-\u036f]/g, '')           // quitar acentos
+    .replace(/[^a-z0-9]/gi, '')                // eliminar símbolos y espacios
+    .replace(/[|@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?!~`°•·]/g, '') // extra symbols
+    .replace(/1/g, 'i')                        // reemplazar números comunes
+    .replace(/3/g, 'e')
+    .replace(/4/g, 'a')
+    .replace(/0/g, 'o')
+    .replace(/5/g, 's')
+    .replace(/7/g, 't');
+}
 
 // Funciones exportadas
 export const contienePalabrasOfensivas = (texto) => {
-  return filtro.isProfane(texto);
+  const limpio = normalizarTexto(texto);
+  return filtro.isProfane(limpio);
 };
 
 export const censurarTexto = (texto) => {

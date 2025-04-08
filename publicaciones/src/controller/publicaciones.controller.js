@@ -71,16 +71,29 @@ export const darLike = async (req, res) => {
 
     if (!pub) return res.status(404).json({ message: 'Publicación no encontrada' });
 
-    if (!pub.likes.includes(req.user.id)) {
+    const yaDioLike = pub.likes.includes(req.user.id);
+
+    if (yaDioLike) {
+      // Quitar el like
+      pub.likes = pub.likes.filter(id => id !== req.user.id);
+    } else {
+      // Agregar el like
       pub.likes.push(req.user.id);
-      await pub.save();
     }
 
-    res.json(pub);
+    await pub.save();
+
+    res.json({
+      message: yaDioLike ? 'Like eliminado' : 'Like agregado',
+      cantidadLikes: pub.likes.length,
+      meGusta: !yaDioLike,
+      publicacion: pub
+    });
   } catch (err) {
-    res.status(500).json({ error: 'Error al dar like' });
+    res.status(500).json({ error: 'Error al procesar el like' });
   }
 };
+
 
 // FEED GENERAL
 export const listarPublicaciones = async (req, res) => {
