@@ -2,13 +2,13 @@ import Usuario from '../models/usuario.model.js';
 import bcrypt from 'bcrypt';
 import { generarYEnviarCodigo } from '../utils/codigoCorreo.js';
 
-// Almacenamiento temporal (puedes cambiarlo por Redis o MongoDB si quieres)
+// Almacenamiento temporal 
 export const registrosTemporales = new Map();
 
 // 1. Registro temporal: guarda usuario en memoria y envía código
 export const registerTemp = async (req, res) => {
   try {
-    const { nombre, apellido, correo, contrasenia, rol, fecha_nacimiento } = req.body;
+    const { nombre, apellido, correo, contrasenia, fecha_nacimiento } = req.body;
 
     const existeUsuario = await Usuario.findOne({ correo });
     if (existeUsuario) {
@@ -30,7 +30,6 @@ export const registerTemp = async (req, res) => {
       apellido,
       correo,
       contrasenia: hashedPassword,
-      rol,
       fecha_nacimiento,
       foto_perfil: media
     });

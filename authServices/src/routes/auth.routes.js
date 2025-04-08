@@ -28,19 +28,24 @@ import upload from '../middlewares/subirFotos.js';
 const router = Router();
 
 // Verificación por correo
-router.post('/api/register-temp', upload.array('files'), validateSchema(registroUsuarioSchemaZod), registerTemp);
-router.post('/api/verify-email', verificarCorreo);
-router.post('/api/2fa', verificar2FA);
+router.post('/register-temp', upload.array('files'), validateSchema(registroUsuarioSchemaZod), registerTemp);
+router.post('/verify-email', verificarCorreo);
+router.post('/2fa', verificar2FA);
 
 // Auth
-router.post('/api/login', validateSchema(loginSchemaZod), login);
-router.post('/api/logout', logout);
-router.get('/api/profile', authRequired, profile);
+router.post('/login', (req, res, next) => {
+  console.log('📨 Login llegó al authService');
+  next();
+}, login);
+
+//router.post('/login', validateSchema(loginSchemaZod), login);
+router.post('/logout', logout);
+router.get('/profile', authRequired, profile);
 
 // Usuarios
-router.get('/api/usuarios', authRequired, obtenerUsuarios);
-router.get('/api/usuarios/:id_usuario', authRequired, obtenerUsuarioPorId);
-router.put('/api/usuarios/:id_usuario', authRequired, actualizarUsuario);
-router.delete('/api/usuarios/:id_usuario', authRequired, eliminarUsuario);
+router.get('/usuarios', authRequired, obtenerUsuarios);
+router.get('/usuarios/:id_usuario', authRequired, obtenerUsuarioPorId);
+router.put('/usuarios/:id_usuario', authRequired, actualizarUsuario);
+router.delete('/usuarios/:id_usuario', authRequired, eliminarUsuario);
 
 export default router;
