@@ -94,3 +94,4 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - Aprobación/rechazo evidencias
 - Creación/edición de actividades
 - Gestión de recompensas y misiones
+- Gestion del calendario escolar
