@@ -95,4 +95,4 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - Perfil del usuario (nombre, foto, fecha de nacimiento, rol)
 - Seguidores y seguidos (solo para profes y padres)
 - Edición de perfil
-- Ver estadísticas personales
+
