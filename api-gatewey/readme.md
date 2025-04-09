@@ -7,6 +7,7 @@
 - npm install body-parser
 - npm install multer
 - npm install form-data fs
+- npm install cors
 
 
 

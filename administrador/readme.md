@@ -1,0 +1,12 @@
+## instalar para iniciar el proyecto
+- npm install
+- npm init -y
+- npm install express mongoose morgan
+- npm install nodemon
+- npm install jsonwebtoken
+- npm install express
+- npm i cookie-parser
+- npm install zod --legacy-peer-deps
+- npm install multer
+- npm install cloudinary multer multer-storage-cloudinary --legacy-peer-deps 
+- npm install dotenv --legacy-peer-deps

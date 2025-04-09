@@ -1,18 +1,19 @@
 import fetch from 'node-fetch';
 
 /**
- * Reenvía una solicitud simple con o sin cuerpo JSON.
+ * Reenvía una solicitud simple con o sin cuerpo JSON, asegurándose de manejar las cookies.
  */
 export async function forwardRequest({ req, res, method = 'GET', url, sendBody = false }) {
   try {
     const headers = {
       'Authorization': req.headers.authorization || '',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     };
 
     const options = {
       method,
-      headers
+      headers,
+      credentials: 'include', // Asegura que las cookies se incluyan en la solicitud
     };
 
     if (sendBody) {
@@ -20,6 +21,13 @@ export async function forwardRequest({ req, res, method = 'GET', url, sendBody =
     }
 
     const response = await fetch(url, options);
+
+    // Reenviar cookies de la respuesta del microservicio
+    const cookies = response.headers.get('set-cookie');
+    if (cookies) {
+      res.setHeader('Set-Cookie', cookies); // Reenvía la cookie al cliente
+    }
+
     const data = await response.json();
     res.status(response.status).json(data);
   } catch (err) {

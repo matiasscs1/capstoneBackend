@@ -19,7 +19,7 @@ app.use((err, req, res, next) => {
     return res.status(400).json({ message: err.message });
   }
 
-  console.error('❌ Error no controlado:', err);
+  console.error('Error no controlado:', err);
   res.status(500).json({ message: 'Error interno del servidor.' });
 });
 

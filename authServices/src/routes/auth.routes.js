@@ -33,12 +33,12 @@ router.post('/verify-email', verificarCorreo);
 router.post('/2fa', verificar2FA);
 
 // Auth
-router.post('/login', (req, res, next) => {
+/*router.post('/login', (req, res, next) => {
   console.log('📨 Login llegó al authService');
   next();
-}, login);
+}, login);*/
 
-//router.post('/login', validateSchema(loginSchemaZod), login);
+router.post('/login', validateSchema(loginSchemaZod), login);
 router.post('/logout', logout);
 router.get('/profile', authRequired, profile);
 

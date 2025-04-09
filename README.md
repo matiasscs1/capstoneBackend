@@ -40,6 +40,8 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - npm install fluent-ffmpeg 
 - npm install bad-words (PUBLICACIONES)
 - npm install nodemailer (AUTHSERVICES)
+- npm install cors --legacy-peer-deps
+
  
 
 

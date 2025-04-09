@@ -44,8 +44,7 @@ export const verificarCorreo = async (req, res) => {
     }
   });
 };
-
-// 🔐 Confirmar código 2FA → generar token de sesión
+// En el controlador verificar2FA
 export const verificar2FA = async (req, res) => {
   const { correo, codigo } = req.body;
 
@@ -65,7 +64,13 @@ export const verificar2FA = async (req, res) => {
     rol: user.rol
   });
 
-  res.cookie('token', token);
+  res.cookie('token', token, {
+    httpOnly: true, // Hace que la cookie no sea accesible desde JavaScript
+    secure: process.env.NODE_ENV === 'production', // Solo si es en producción, usa HTTPS
+    maxAge: 3600000, // Duración de la cookie (1 hora en este ejemplo)
+    sameSite: 'None', // Para permitir cookies entre diferentes orígenes (CORS)
+  });
+  
   res.json({
     message: "2FA verificado correctamente. Sesión iniciada.",
     usuario: {
@@ -81,3 +86,4 @@ export const verificar2FA = async (req, res) => {
     }
   });
 };
+
