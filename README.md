@@ -91,7 +91,7 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - Aprobación/rechazo evidencias
 - Creación/edición de actividades
 - creacion de insignias
-- Gestión de recompensas y misiones
+- creacion/ actualizacion/eliminacion recompensas y misiones
 - Perfil del usuario (nombre, foto, fecha de nacimiento, rol)
 - Seguidores y seguidos (solo para profes y padres)
 - Edición de perfil
