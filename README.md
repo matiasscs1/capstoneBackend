@@ -82,7 +82,7 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - Estados de actividad (inscrito, en progreso, completada)
 - Visualización de progreso (gráficos de barras y torta)
 
-## 5. Administracion
+## 5. Usuarios
 
 - Gestión de usuarios y roles
 - Aprobación/rechazo evidencias
