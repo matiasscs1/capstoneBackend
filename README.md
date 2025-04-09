@@ -82,16 +82,14 @@ Este es el backend del proyecto Capstone desarrollado con **Node.js**, **Express
 - Estados de actividad (inscrito, en progreso, completada)
 - Visualización de progreso (gráficos de barras y torta)
 
-## 5. profile
-- Perfil del usuario (nombre, foto, fecha de nacimiento, rol)
-- Seguidores y seguidos (solo para profes y padres)
-- Edición de perfil
-- Ver estadísticas personales
-
-## 6. Administracion
+## 5. Administracion
 
 - Gestión de usuarios y roles
 - Aprobación/rechazo evidencias
 - Creación/edición de actividades
 - Gestión de recompensas y misiones
 - Gestion del calendario escolar
+- Perfil del usuario (nombre, foto, fecha de nacimiento, rol)
+- Seguidores y seguidos (solo para profes y padres)
+- Edición de perfil
+- Ver estadísticas personales
