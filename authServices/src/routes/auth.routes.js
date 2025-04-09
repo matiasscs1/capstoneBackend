@@ -16,12 +16,7 @@ import { authRequired } from '../middlewares/validateToken.js';
 import { validateSchema } from '../middlewares/validateSchema.js';
 import { loginSchemaZod, registroUsuarioSchemaZod } from '../schemas/auth.shema.js';
 
-import {
-  obtenerUsuarios,
-  obtenerUsuarioPorId,
-  actualizarUsuario,
-  eliminarUsuario
-} from '../controller/usuario.controller.js';
+
 
 import upload from '../middlewares/subirFotos.js';
 
@@ -42,10 +37,6 @@ router.post('/login', validateSchema(loginSchemaZod), login);
 router.post('/logout', logout);
 router.get('/profile', authRequired, profile);
 
-// Usuarios
-router.get('/usuarios', authRequired, obtenerUsuarios);
-router.get('/usuarios/:id_usuario', authRequired, obtenerUsuarioPorId);
-router.put('/usuarios/:id_usuario', authRequired, actualizarUsuario);
-router.delete('/usuarios/:id_usuario', authRequired, eliminarUsuario);
+
 
 export default router;

@@ -2,12 +2,11 @@ import Actividad from '../model/actividades.model.js';
 
 export const creartActividad = async (req, res) => {
     try{
-        const { titulo, descripcion, puntosOtorgados, fechaInicio, fechaFin } = req.body;
+        const { titulo, descripcion, fechaInicio, fechaFin } = req.body;
 
         const nuevaActividad = new Actividad({
             titulo,
             descripcion,
-            puntosOtorgados,
             fechaInicio,
             fechaFin
         });
@@ -35,7 +34,7 @@ export const obtenerActividades = async (req, res) => {
 export const actualizarActividad = async (req, res) => {
     try {
       const id = req.params.id;
-      const { titulo, descripcion, puntosOtorgados, fechaInicio, fechaFin } = req.body;
+      const { titulo, descripcion, fechaInicio, fechaFin } = req.body;
   
       const actividad = await Actividad.findOne({ id_actividad: id });
   
@@ -45,7 +44,6 @@ export const actualizarActividad = async (req, res) => {
   
       actividad.titulo = titulo?.trim() || actividad.titulo;
       actividad.descripcion = descripcion?.trim() || actividad.descripcion;
-      actividad.puntosOtorgados = puntosOtorgados ?? actividad.puntosOtorgados;
       actividad.fechaInicio = fechaInicio ?? actividad.fechaInicio;
       actividad.fechaFin = fechaFin ?? actividad.fechaFin;
   

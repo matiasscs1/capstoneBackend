@@ -15,6 +15,11 @@ export const crearPublicacion = async (req, res) => {
       const tipo = file.mimetype.startsWith('video') ? 'video' : 'imagen';
       const url = file.path;
 
+      //
+
+     `
+  `
+
       // IMAGEN
       if (tipo === 'imagen') {
         const { esInapropiada, detalles } = await analizarContenidoImagen(url);

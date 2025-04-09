@@ -17,8 +17,13 @@ export const authRequired = (req, res, next) => {
   jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
     if (err) return res.status(403).json({ message: 'Token inválido.' });
 
-    req.user = decoded;
-    req.token = token;
+    // Verificar que el rol del usuario sea 'estudiante' o 'profesor'
+    if (!['estudiante', 'profesor'].includes(decoded.rol)) {
+      return res.status(403).json({ message: 'No tienes permisos para realizar esta acción.' });
+    }
+
+    req.user = decoded; // Agregar la información del usuario decodificada al request
+    req.token = token;   // Opcional: Guardar el token si es necesario en el flujo
     next();
   });
 };

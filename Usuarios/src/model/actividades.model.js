@@ -32,10 +32,6 @@ const actividadSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    puntosOtorgados: {
-        type: Number,
-        required: true
-    },
     fechaInicio: {
         type: Date,
         required: true

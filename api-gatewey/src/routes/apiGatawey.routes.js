@@ -26,21 +26,8 @@ router.post('/login', (req, res) =>
   router.post('/verify-email', (req, res) =>
     forwardRequest({ req, res, method: 'POST', url: `${AUTH_BASE}/verify-email`, sendBody: true })
   );
-  
   router.post('/2fa', (req, res) => {
     forwardRequest({ req, res, method: 'POST', url: `${AUTH_BASE}/2fa`, sendBody: true })
-      .then(() => {
-        const token = req.cookies.token; // Verifica si la cookie 'token' está presente
-        if (token) {
-          return res.status(200).json({ message: '2FA verificado correctamente.' });
-        } else {
-          return res.status(400).json({ message: 'Token no encontrado en la cookie.' });
-        }
-      })
-      .catch(err => {
-        // Solo enviamos una respuesta, no más de una
-        return res.status(500).json({ message: 'Error reenviando solicitud', error: err.message });
-      });
   });
   
   
