@@ -81,6 +81,7 @@ export const verificar2FA = async (req, res) => {
       rol: user.rol,
       foto_perfil: user.foto_perfil,
       fecha_nacimiento: user.fecha_nacimiento,
+      token : token,
       estado: user.estado,
       puntosAcumulados: user.puntosAcumulados
     }

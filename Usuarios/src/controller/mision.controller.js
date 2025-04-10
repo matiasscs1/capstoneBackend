@@ -31,8 +31,6 @@ export const crearMision = async (req, res) => {
     }
 };
 
-import Mision from '../models/Mision'; // Importa tu modelo Misión
-
 export const verMision = async (req, res) => {
     try {
         const { id_mision } = req.params;  // Obtiene el id de la misión desde los parámetros de la URL
