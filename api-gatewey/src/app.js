@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import apiGatewayRoutes from './routes/apiGatawey.routes.js';
+import cookieParser from 'cookie-parser';
+
 dotenv.config();
 
 const app = express();
@@ -15,6 +17,7 @@ app.use(cors({
 // Middleware para procesar JSON y datos urlencoded
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Rutas del API Gateway
 app.use(apiGatewayRoutes);

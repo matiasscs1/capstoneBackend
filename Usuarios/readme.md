@@ -10,3 +10,5 @@
 - npm install multer
 - npm install cloudinary multer multer-storage-cloudinary --legacy-peer-deps 
 - npm install dotenv --legacy-peer-deps
+- npm install axios --legacy-peer-deps
+- npm install bcrypt --legacy-peer-deps

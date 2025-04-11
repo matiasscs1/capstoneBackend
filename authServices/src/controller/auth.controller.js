@@ -79,10 +79,10 @@ export const logout = (req, res) => {
   res.status(200).json({ message: "Sesión cerrada." });
 };
 
-// Perfil del usuario autenticado
 export const profile = async (req, res) => {
   try {
     const userFound = await Usuario.findOne({ id_usuario: req.user.id });
+    
 
     if (!userFound) {
       return res.status(404).json({ message: "Usuario no encontrado." });
@@ -94,12 +94,13 @@ export const profile = async (req, res) => {
       apellido: userFound.apellido,
       correo: userFound.correo,
       rol: userFound.rol,
-      foto_perfil: userFound.foto_perfil,
+      foto_perfil: userFound.foto_perfil?.[0]?.url || null,
       fecha_nacimiento: userFound.fecha_nacimiento,
       estado: userFound.estado,
       puntosAcumulados: userFound.puntosAcumulados
     });
   } catch (error) {
+    console.error("❌ Error en profile:", error);
     res.status(500).json({ message: "Error al obtener el perfil." });
   }
 };

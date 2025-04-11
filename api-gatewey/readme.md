@@ -8,6 +8,7 @@
 - npm install multer
 - npm install form-data fs
 - npm install cors
+- npm install cookie-parser
 
 
 
