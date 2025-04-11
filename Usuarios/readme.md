@@ -12,3 +12,4 @@
 - npm install dotenv --legacy-peer-deps
 - npm install axios --legacy-peer-deps
 - npm install bcrypt --legacy-peer-deps
+- npm install axios --legacy-peer-deps

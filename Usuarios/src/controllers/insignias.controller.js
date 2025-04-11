@@ -1,6 +1,6 @@
-import Insignia from '../model/insignias.model.js';
+import Insignia from '../models/insignias.model.js';
 import { analizarContenidoImagen } from '../services/sightengineService.js';
-import { cloudinary } from '../config/config.js';
+import { cloudinary } from '../config.js';
 
 export const crearInsignia = async (req, res) => {
     try {

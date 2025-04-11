@@ -1,4 +1,4 @@
-import Seguimiento from '../models/seguimiento.model.js';  // Importamos el modelo de Seguimiento
+import Seguimiento from '../models/seguimientos.model.js';  // Importamos el modelo de Seguimiento
 import Usuario from '../models/usuario.model.js';  // Para obtener los detalles de los usuarios (seguido y seguidor)
 
 // Crear un nuevo seguimiento (seguidor sigue a seguido)

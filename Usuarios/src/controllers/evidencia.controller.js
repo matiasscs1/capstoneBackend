@@ -1,4 +1,4 @@
-import Evidencia from '../model/evidencia.model.js';
+import Evidencia from '../models/evidencia.model.js';
 
 export const verEvidencia = async (req, res) => {
   try {

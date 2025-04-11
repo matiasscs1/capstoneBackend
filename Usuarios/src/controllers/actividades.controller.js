@@ -1,4 +1,4 @@
-import Actividad from '../model/actividades.model.js';
+import Actividad from '../models/actividades.model.js';
 
 export const creartActividad = async (req, res) => {
     try{
@@ -29,6 +29,26 @@ export const obtenerActividades = async (req, res) => {
         res.status(500).json({ message: "Error del servidor." });
     }
 }
+
+export const obtenerActividadPorId = async (req, res) => {
+    try {
+        const id_actividad = req.params.id;
+
+        console.log("ID recibido:", id_actividad); // para depurar
+
+        const actividad = await Actividad.findOne({ id_actividad: id_actividad });
+
+        if (!actividad) {
+            return res.status(404).json({ message: 'Actividad no encontrada' });
+        }
+
+        res.status(200).json(actividad);
+    } catch (error) {
+        console.error("Error en obtenerActividadPorId:", error);
+        res.status(500).json({ message: "Error del servidor." });
+    }
+};
+
 
 
 export const actualizarActividad = async (req, res) => {

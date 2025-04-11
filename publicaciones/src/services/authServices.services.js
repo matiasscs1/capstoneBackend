@@ -1,6 +1,6 @@
 export const obtenerDatosUsuario = async (id_usuario, token) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/usuarios/${id_usuario}`, {
+      const response = await fetch(`http://localhost:3000/usuario/${id_usuario}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`

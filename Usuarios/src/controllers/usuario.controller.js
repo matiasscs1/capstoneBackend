@@ -20,7 +20,6 @@ export const obtenerUsuarios = async (req, res) => {
 export const obtenerUsuarioPorId = async (req, res) => {
   try {
     const { id_usuario } = req.params;
-    console.log("Buscando por id_usuario:", id_usuario);
 
     const usuario = await Usuario.findOne({ id_usuario: id_usuario }).select('-contrasenia');
 

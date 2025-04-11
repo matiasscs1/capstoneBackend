@@ -1,4 +1,4 @@
-import Recompensa from '../model/recompensa.model.js'; // Asegúrate de importar el modelo correctamente
+import Recompensa from '../models/recompensa.model.js'; // Asegúrate de importar el modelo correctamente
 
 export const crearRecompensa = async (req, res) => {
     try {
