@@ -100,7 +100,25 @@ export const profile = async (req, res) => {
       puntosAcumulados: userFound.puntosAcumulados
     });
   } catch (error) {
-    console.error("❌ Error en profile:", error);
+    console.error("Error en profile:", error);
     res.status(500).json({ message: "Error al obtener el perfil." });
   }
 };
+
+export const obtenerUsuarioPorId = async (req, res) => {
+  try {
+    const { id_usuario } = req.params;
+    console.log("Buscando por id_usuario:", id_usuario);
+
+    const usuario = await Usuario.findOne({ id_usuario: id_usuario }).select('-contrasenia');
+
+    if (!usuario) return res.status(404).json({ message: 'Usuario no encontrado.' });
+
+    res.json(usuario);
+  } catch (error) {
+    console.error("Error en obtenerUsuarioPorId:", error);
+    res.status(500).json({ message: 'Error al obtener el usuario.' });
+  }
+};
+
+

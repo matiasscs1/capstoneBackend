@@ -4,7 +4,8 @@ import {
   registerTemp,
   login,
   logout,
-  profile
+  profile,
+  obtenerUsuarioPorId
 } from '../controller/auth.controller.js';
 
 import {
@@ -27,15 +28,12 @@ router.post('/register-temp', upload.array('files'), validateSchema(registroUsua
 router.post('/verify-email', verificarCorreo);
 router.post('/2fa', verificar2FA);
 
-// Auth
-/*router.post('/login', (req, res, next) => {
-  console.log('📨 Login llegó al authService');
-  next();
-}, login);*/
+
 
 router.post('/login', validateSchema(loginSchemaZod), login);
 router.post('/logout', logout);
 router.get('/profile', authRequired, profile);
+router.get('/usuario/:id_usuario', authRequired, obtenerUsuarioPorId )
 
 
 

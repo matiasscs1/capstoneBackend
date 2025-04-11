@@ -20,12 +20,15 @@ export const obtenerUsuarios = async (req, res) => {
 export const obtenerUsuarioPorId = async (req, res) => {
   try {
     const { id_usuario } = req.params;
-    const usuario = await Usuario.findOne({ id_usuario }).select('-contrasenia');
+    console.log("Buscando por id_usuario:", id_usuario);
+
+    const usuario = await Usuario.findOne({ id_usuario: id_usuario }).select('-contrasenia');
 
     if (!usuario) return res.status(404).json({ message: 'Usuario no encontrado.' });
 
     res.json(usuario);
   } catch (error) {
+    console.error("Error en obtenerUsuarioPorId:", error);
     res.status(500).json({ message: 'Error al obtener el usuario.' });
   }
 };

@@ -45,8 +45,8 @@ router.post('/login', (req, res) =>
     forwardRequest({ req, res, method: 'GET', url: `${AUTH_BASE}/usuarios` })
   );
   
-  router.get('/usuarios/:id_usuario', verifyToken, (req, res) =>
-    forwardRequest({ req, res, method: 'GET', url: `${AUTH_BASE}/usuarios/${req.params.id_usuario}` })
+  router.get('/usuario/:id_usuario', verifyToken, (req, res) =>
+    forwardRequest({ req, res, method: 'GET', url: `${AUTH_BASE}/usuario/${req.params.id_usuario}` })
   );
   
   /* ---------------- PUBLICACIONES SERVICE ---------------- */
