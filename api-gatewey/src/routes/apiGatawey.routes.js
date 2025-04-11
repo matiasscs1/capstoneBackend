@@ -5,6 +5,9 @@ import fetch from 'node-fetch';
 import fs from 'fs';
 import multer from 'multer';
 import { Router } from 'express';
+import path from 'path';
+
+
 
 const router = Router();
 
@@ -55,13 +58,13 @@ router.post('/login', (req, res) =>
   router.post('/publicaciones', verifyToken, upload.array('archivos'), async (req, res) => {
     try {
       const form = new FormData();
-      form.routerend('descripcion', req.body.descripcion || '');
+  
+      form.append('descripcion', req.body.descripcion || '');
   
       for (const file of req.files) {
-        form.routerend('archivos', fs.createReadStream(file.path), file.originalname);
+        form.append('archivos', fs.createReadStream(file.path), file.originalname);
       }
   
-      // Reenviar la publicación a otro servicio (por ejemplo, el microservicio de publicaciones)
       const response = await fetch(`${PUB_BASE}/publicaciones`, {
         method: 'POST',
         headers: {
@@ -72,10 +75,9 @@ router.post('/login', (req, res) =>
       });
   
       const data = await response.json();
-      
-      // Limpiar los archivos temporales después de que se haya procesado la solicitud
+  
       req.files.forEach(file => {
-        fs.unlink(path.join(__dirname, file.path), (err) => {
+        fs.unlink(path.join(file.path), (err) => {
           if (err) {
             console.error(`Error eliminando archivo temporal: ${err.message}`);
           } else {
